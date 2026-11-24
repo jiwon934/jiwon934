@@ -1,11 +1,63 @@
 # 안녕하세요, 정지원입니다 👋
 
-웹·앱 풀스택 개발을 공부하고 있습니다. 요구사항 정리부터 DB 설계, 구현, 배포까지 직접 해 보는 것을 좋아합니다.
+> **"막히면 다른 길을 찾고, 팀과 끝까지 함께 가는 개발자"**
+> AI 기능까지 서비스로 완성하는 풀스택 개발자를 목표로 하고 있습니다.
 
-## 프로젝트
+- 🎓 조선대학교 컴퓨터통계학과 (2027.02 졸업 예정)
+- 🏕 AI 부트캠프 AI응용프로젝트 (NHN사업단, 2026.10 ~ 2026.11)
 
-| 프로젝트 | 소개 | 기술 |
-|---|---|---|
-| [**BlogCabin**](https://github.com/jiwon934/blogcabin) · 개인 | 글을 쓸수록 내 마을이 자라는 게임형 블로그 서비스 | Next.js 16, TypeScript, Hono, PostgreSQL, Docker, GitHub Actions |
-| [**BlogCabin 설계 문서**](https://github.com/jiwon934/blogcabin-docs) · 개인 | 요구사항 명세, ERD(테이블 26개), 기능 명세, 배포 안내 | Spec Kit, Crowfoot ERD |
-| [**패션 에이전트**](https://github.com/jiwon934/fashion-agent) · 팀(3명) | 시각장애인을 위한 음성 AI 옷차림 도우미. 옷 상태 인식·치아 확인·일정 MCP 서버 담당, 인식 모델 직접 학습, 젯슨 배포 | Flutter, Java 21, Spring AI MCP, ONNX, YOLO, PostgreSQL, Docker |
+### 기술 스택
+
+| 구분 | 기술 |
+|---|---|
+| 주력 | TypeScript · Next.js · React · PostgreSQL · Drizzle · Tailwind CSS |
+| 경험 | Java · Spring AI · Python · R · YOLO · MediaPipe · OpenCV · ONNX · Playwright · Docker · GitHub Actions · MQTT · InfluxDB |
+| 도구 | Crowfoot(ERD) · Spec Kit · Claude Code |
+
+---
+
+## 📂 프로젝트
+
+### 🏘 BlogCabin · 글을 쓸수록 마을이 자라는 게임형 블로그
+`2026.10.02 ~ 10.16` · `부트캠프` · `3인 팀으로 시작 → 혼자 이어받아 운영`
+
+- **맡은 일**: 요구사항 명세 → ERD 설계 → 화면·서버 API 개발 → 자동 배포까지 전 과정
+- **기술**: Next.js 16 · React 19 · Hono · PostgreSQL · Drizzle ORM · Better Auth · Phaser 4 · Playwright · Docker · GitHub Actions
+- **결과**
+  - 요구사항 **90개 항목**, ERD **31개 테이블** · 마이그레이션 **36개**, 화면 **28개** · 서버 API 약 **150개**
+  - **PR 121개**, 코드 약 **2만 8천 줄**, nginx 무중단 롤링 배포로 운영 서버에 실제 서비스
+
+👉 [코드](https://github.com/jiwon934/blogcabin) · [설계 문서](https://github.com/jiwon934/blogcabin-docs)
+
+### 👕 패션 에이전트 (심청이) · 시각장애인을 위한 음성 AI 옷차림 도우미
+`2026.11.03 ~ 11.20` · `부트캠프` · `3인 팀`
+
+- **맡은 일**: 옷 상태 인식·치아 확인·일정 MCP 서버 담당, 인식 모델 직접 학습, 앱 기능, 젯슨 서버 배포
+- **기술**: Flutter · Java 21 · Spring AI MCP · ONNX · YOLO · PostgreSQL · Docker · Nginx
+- **결과**
+  - 팀 저장소 7곳에 **PR 88개**
+  - 옷 종류·색·무늬·얼룩 인식 모델 **4개** 직접 학습, 입은 옷 무늬 정확도 **0.845 → 0.900**
+  - 치아 사이 이물 확인 모델 합성 시험 정확도 **91%**
+
+👉 [코드와 내가 맡은 부분](https://github.com/jiwon934/fashion-agent)
+
+### ✋ 따라손 놀이 · 웹캠 손동작 인식 치매 예방 인지 훈련 게임
+`2026.03 ~ 06` · `대학 캡스톤디자인` · `2인 팀 · 팀장`
+
+- **맡은 일**: 손 인식 프로그램 개발, 파트별 코드 통합, 월별 목표·진행률 관리
+- **기술**: Python · YOLOv8 · MediaPipe · OpenCV · Roboflow
+- **결과**
+  - YOLO **3개 버전**(v8n·v8s·v11s)의 속도·정확도를 재서 실시간 인식에 맞는 YOLOv8n 선택
+  - YOLO만으로 안 되던 손 모양 판정을 MediaPipe **손 관절 21개** 좌표와 코사인 법칙 각도로 해결 (동그라미·세모·네모, 손가락 개수)
+  - 추가 센서 없이 **웹캠만으로** 동작하는 프로토타입 완성 (특허 출원 목표)
+
+### 📊 광주·전남 행정통합 인구 분석
+`2026.03 ~ 06` · `전공 수업 빅데이터분석실무` · `5인 팀 · R 분석 담당`
+
+- **맡은 일**: 소멸위험지수·노년부양비 시계열 분석과 회귀분석
+- **기술**: R · Brown 이중지수평활 · 요인분석 · 회귀분석
+- **데이터**: KOSIS 주민등록인구 1999~2025년 (**27년치**), e-지방지표 **13개**
+- **결과**
+  - 광주 **2027년** 소멸위험 진입 예측, 전남과 통합하면 소멸 시점 **2년** 늦춤
+  - 13개 변수의 다중공선성(VIF)을 요인분석으로 **2개 성분**으로 줄여 해결
+  - R² · RMSE · Ljung-Box 검정으로 모형 검증
