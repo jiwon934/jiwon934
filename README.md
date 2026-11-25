@@ -223,10 +223,14 @@
 `2026.10.02 ~ 10.16` · `부트캠프` · `3인 팀으로 시작 → 혼자 이어받아 운영` · [📄 설계 문서](https://github.com/jiwon934/blogcabin-docs)
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/jiwon934/blogcabin/develop/frontend/public/release-notes/1.31.0/fishing.webp" width="48%" alt="BlogCabin 2D 마을 광장">
-  <img src="https://raw.githubusercontent.com/jiwon934/blogcabin/develop/frontend/public/release-notes/1.20.0/miniroom-pet.webp" width="48%" alt="BlogCabin 미니룸 꾸미기">
+  <img src="https://raw.githubusercontent.com/jiwon934/blogcabin/develop/frontend/public/release-notes/1.31.0/fireworks.webp" width="48%" alt="BlogCabin 밤 마을 불꽃놀이">
+  <img src="https://raw.githubusercontent.com/jiwon934/blogcabin/develop/frontend/public/release-notes/1.32.0/farm-egg.webp" width="48%" alt="BlogCabin 동물 농장 알 부화">
 </p>
-<p align="center"><sub>왼쪽: Phaser 2D 마을 광장(낚시) · 오른쪽: 미니룸 꾸미기와 펫</sub></p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/jiwon934/blogcabin/develop/frontend/public/release-notes/1.32.0/closet-hair-color.webp" width="48%" alt="BlogCabin 캐릭터 꾸미기">
+  <img src="https://raw.githubusercontent.com/jiwon934/blogcabin/develop/frontend/public/release-notes/1.27.0/fireflies.webp" width="48%" alt="BlogCabin 광장 모닥불과 반딧불">
+</p>
+<p align="center"><sub>밤 마을 불꽃놀이 · 동물 농장 알 부화 · 캐릭터 꾸미기 · 광장 모닥불과 반딧불</sub></p>
 
 **🙋 내가 한 일**
 - **기획**: 요구사항 명세 **90개 항목**, 영역별 기능 명세 7개
