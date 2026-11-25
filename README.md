@@ -11,7 +11,7 @@
 | 구분 | 기술 |
 |---|---|
 | 주력 | TypeScript · Next.js · React · PostgreSQL · Drizzle · Tailwind CSS |
-| 경험 | Java · Spring AI · Python · R · YOLO · MediaPipe · OpenCV · ONNX · ONNX Runtime · TensorRT · PyTorch · Playwright · Docker · GitHub Actions · MQTT · InfluxDB |
+| 경험 | Java · Spring Boot · Spring AI · Dart/Flutter · Python · R · YOLO · MediaPipe · OpenCV · ONNX · ONNX Runtime · TensorRT · PyTorch · Playwright · Docker · GitHub Actions · MQTT · InfluxDB |
 | 도구 | Crowfoot(ERD) · Spec Kit · Claude Code |
 
 ---
@@ -20,7 +20,7 @@
 
 | 프로젝트 | 기간 | 형태 | 핵심 | 링크 |
 |---|---|---|---|---|
-| **[패션 에이전트](https://github.com/jiwon934/fashion-agent)** | 2026.11 | 부트캠프 · 3인 팀 | MCP 서버 3개 담당, 모델 4개 학습, PR 88개 | [👉 저장소](https://github.com/jiwon934/fashion-agent) |
+| **[패션 에이전트](https://github.com/jiwon934/fashion-agent)** | 2026.11 | 부트캠프 · 3인 팀 | MCP 서버 3개 담당, 모델 6종 학습, 머지 PR 160개 | [👉 저장소](https://github.com/jiwon934/fashion-agent) |
 | **Jetson 카메라 비전 서비스** | 2026.10 | 부트캠프 실습 과제 1~6 | 재실 인원 + 스테레오 근접 경고, 12시간 무중단 | – |
 | **Jetson 멀티모달 임베딩** | 2026.10 | 부트캠프 실습 | 텍스트·이미지·음성 검색, 미세 조정, 카메라 2대 접근 감지 | – |
 | **[실내 공기 시계열 추론](https://github.com/jiwon934/timeseries-inference-AIGJ_01_015)** | 2026.10 | 부트캠프 실습 과제 1~8 | 센서 수집 → 모델 4개 → Jetson 상시 서비스 720/720 | [👉 저장소](https://github.com/jiwon934/timeseries-inference-AIGJ_01_015) |
@@ -33,32 +33,85 @@
 ## 📂 프로젝트 (최신순)
 
 ### 👕 [패션 에이전트 (심청이)](https://github.com/jiwon934/fashion-agent) · 시각장애인을 위한 음성 AI 옷차림 도우미
-`2026.11.03 ~ 11.20` · `부트캠프` · `3인 팀` · 팀 저장소 7곳에 **PR 88개**
+`2026.11.03 ~ 11.24` · `부트캠프` · `3인 팀` · 팀 저장소 9곳에 **머지된 PR 160개** (기능 PR 132 + 릴리스 머지 28)
 
-버튼 대신 말로 묻고 답하는 음성 에이전트입니다. 옷을 찍으면 얼룩·찢어짐·색 조합·일정에 맞는지를 말로 알려 줍니다.
+<p align="center">
+  <img src="images/simcheong/simcheong-logo.png" width="120" alt="심청이 로고">
+</p>
+
+버튼 대신 말로 묻고 답하는 음성 에이전트입니다. 오늘 날씨와 일정을 보고 먼저 옷을 추천하고, 꺼낸 옷을 카메라에 비추면 얼룩·찢어짐·색 조합·일정에 맞는지를 말로 알려 줍니다. 사진 찍기 버튼 없이 폰이 구도를 소리로 안내하고, 옷이 잘 들어오면 알아서 찍습니다.
+11.20 발표 뒤에도 보안·구조 정리와 테스트 보강을 이어 갔습니다. · [팀 조직 소개](https://github.com/fashion-agent-team)
+
+<table>
+  <tr>
+    <td align="center" valign="top" width="25%"><img src="images/simcheong/1122-11-schedule-add.png" width="180" alt="일정 넣기"><br><sub><b>일정 넣기</b> (mcp-schedule)</sub><br><sub>결혼식이면 드라이클리닝 안내</sub></td>
+    <td align="center" valign="top" width="25%"><img src="images/simcheong/1122-20-cam-outfit.png" width="180" alt="바닥에 펼쳐 비추기"><br><sub><b>옷 확인</b> (mcp-clothes-state)</sub><br><sub>멈추면 자동으로 찍어요</sub></td>
+    <td align="center" valign="top" width="25%"><img src="images/simcheong/1122-24-cam-color.png" width="180" alt="옷 색 묻기"><br><sub><b>무슨 색이야?</b> (색 CNN)</sub><br><sub>비춘 옷의 종류·색을 바로 말해요</sub></td>
+    <td align="center" valign="top" width="25%"><img src="images/simcheong/1122-27-cam-teeth.png" width="180" alt="이 확인"><br><sub><b>이 확인</b> (teeth_check)</sub><br><sub>"이" 하고 입을 벌린 채 비추기</sub></td>
+  </tr>
+</table>
+<p align="center"><sub>실제 앱 화면 · 괄호 안은 그 화면 뒤에서 도는, 제가 만든 서버·모델입니다</sub></p>
 
 **🙋 내가 한 일**
-- **옷 상태 인식 MCP 서버** 담당 (PR 26개): `clothes_inspect`(옷 종류·색·무늬·얼룩·찢어짐), `outfit_color_check`(색 조합) 도구 구현
-- 인식 모델 **4개 직접 학습** → ONNX로 서버 실행: 얼룩·찢어짐 YOLO, 옷 종류 12종, 옷 색 20가지 CNN(K-Fashion), 무늬 8종
-- **치아 확인 도구** (PR 7개): 이 사이 이물 분류 모델(MobileNetV3-Small) 학습·서버 실행
-- **일정 MCP 서버** 처음부터 구현 (PR 7개): 카카오 로컬 장소 검색, 일정 브리핑, 아침 미리 알림
-- **Flutter 앱** (PR 28개): 촬영 위치 음성 안내, 입 주변만 잘라 보내기, 시리 단축어, 앱 아이콘·이름
-- **서버·배포** (PR 18개): 젯슨 상시 서버, DB 정규화, 전체 ERD와 기능 명세 작성
+- **옷 상태 인식 MCP 서버** [`mcp-clothes-state`](https://github.com/fashion-agent-team/mcp-clothes-state) 처음부터 담당 (PR 32개): `clothes_inspect`(옷마다 종류·색·무늬·얼룩·찢어짐, 입은 옷 실수), `outfit_color_check`(색 조합) 도구 구현
+- 인식 모델 **6종 직접 학습** → ONNX Runtime으로 Java 서버에서 실행
+  - 얼룩·찢어짐 YOLO26n **v1 ~ v7** (v6 채택): mAP50 0.485 → **0.636**, 깨끗한 옷 200장 중 오탐 20장 → **1장**
+  - 옷 종류 12종 YOLO26n: 바닥에 펼친 옷 80.3% → **86.7%**
+  - 옷 색 20가지 작은 CNN (K-Fashion): 색 계열 45.3% → **76.8%**, 흰 옷 15% → 87%
+  - 무늬 8종: YOLO 분류 + FashionSigLIP **LoRA** 섞기, 입은 옷 84.5% → **90.02%**
+  - 입은 옷 실수(택·단추·뒤집힘) 분류: 단추 79.7% → **93.7%**
+  - 치아 이물질 MobileNetV3-Small (아래)
+- **치아 확인 도구** [`mcp-face-check`](https://github.com/fashion-agent-team/mcp-face-check)의 `teeth_check` (PR 10개): 이 사이 고춧가루·깨·밥알 분류 모델 학습, v4로 고춧가루 실제 사진 점수 0.03 → **0.96**, 6번 보고 평균 내기로 깨끗한 이 잘못 알림 3.1% → **1.1%**
+- **일정 MCP 서버** [`mcp-schedule`](https://github.com/fashion-agent-team/mcp-schedule) 처음부터 구현 (PR 11개): Spring AI `@McpTool` + 카카오 로컬 장소 분류 + PostgreSQL, 격식 일정 드라이클리닝 안내, 아침 일정 브리핑, 며칠 전 일정을 그날 아침 8시에 알림
+- **DB 설계**: 전체 DB·ERD와 Spec Kit 기능 명세 작성, V4 정규화(로그인 수단 `user_identities`, 장소 `places`, 옷 결함 `garment_defects` 분리)
+- **보안·구조**: `X-User-Id` 헤더를 없애고 각 서버가 로그인 토큰(JWT)을 직접 확인하도록 변경, 로그인 없는 경로 요청 횟수 제한, 5개 레포 패키지 구조 정리, 8개 레포 정적 검사 경고 정리
+- **Flutter 앱** (PR 34개): 치아·화장 촬영 위치 음성 안내, 입 주변만 잘라 보내기(ML Kit 입술 → `mouthBox`), 앱이 켜질 때 서버 미리 준비(`/agent/warm`), 시리 단축어 한국어 등록, 앱 아이콘·이름, 화면 위젯 테스트
+- **서버·배포**: Jetson 상시 서버 처음 구성(Docker Compose · Nginx · Tailscale Funnel), develop → main 릴리스 28번
+- **문서·그림**: 팀 조직 README 처음 작성, 아래 아키텍처·ERD 그림을 데이터 흐름과 V4 구조에 맞게 다시 그림
 
-**🛠 사용한 언어·도구**: Java 21 · Spring AI (MCP) · Dart/Flutter · Python · PyTorch · YOLO · ONNX · FashionSigLIP · ML Kit · PostgreSQL · Docker Compose · Nginx · Tailscale · Spec Kit
+<details><summary><b>🏗 아키텍처 · 🗂 ERD 보기</b></summary>
+<br>
+
+<p align="center"><img src="images/simcheong/architecture-v9.png" width="100%" alt="심청이 아키텍처: 폰 앱 → 도메인·Tailscale Funnel·Nginx → gateway → agent → MCP 서버 다섯, 요청 한 번의 흐름과 바깥으로 나가는 데이터 표시"></p>
+<p align="center"><sub>앱 → Gateway(JWT) → agent(GPT) → MCP 서버 5개. 제가 만든 서버는 mcp-schedule · mcp-clothes-state · mcp-face-check(치아)입니다</sub></p>
+
+<p align="center"><img src="images/simcheong/erd-v8.png" width="100%" alt="심청이 ERD: account 스키마 5개, schedule 스키마 2개(places, events), closet 스키마 4개 테이블"></p>
+<p align="center"><sub>PostgreSQL 17 + pgvector, 서비스마다 스키마를 나눈 V4 정규화 ERD</sub></p>
+
+</details>
+
+**📈 학습할수록 올라간 정확도** (모두 학습에 쓰지 않은 시험 사진으로 잰 값)
+
+<p align="center"><img src="images/simcheong/1122-progress-stain.png" width="100%" alt="얼룩·찢어짐 모델 v1부터 v7까지 mAP50과 깨끗한 옷 오탐 수, 판마다 바꾼 것과 학습 시간"></p>
+<p align="center"><sub>얼룩·찢어짐: 점수가 가장 높은 v7보다 오탐이 적은 v6를 골랐습니다</sub></p>
+
+<details><summary><b>무늬 · 옷 종류 · 옷 색 · 치아 그래프 더 보기</b></summary>
+<br>
+
+<p align="center"><img src="images/simcheong/1122-progress-pattern.png" width="100%" alt="무늬 8종 모델을 입은 옷 정확도 84.5%에서 90.02%까지 올린 단계별 그래프"></p>
+<p align="center"><img src="images/simcheong/progress-my-models.png" width="100%" alt="옷 종류 12종 80.3→86.7%, 옷 색 45.3→76.8%, 치아 합성 시험 87.2→91.2%"></p>
+
+</details>
+
+**🛠 사용한 언어·도구**: Java 21 · Spring Boot · Spring AI (MCP) · Dart/Flutter · Python · PyTorch · Ultralytics YOLO26n · FashionSigLIP + LoRA · ONNX Runtime · TensorRT · ML Kit · PostgreSQL 17 · Flyway · JWT(Nimbus) · Docker Compose · Nginx · Tailscale · GitHub Actions · Spec Kit
 
 **🧗 어려웠던 점 → 해결**
 | 어려웠던 점 | 해결 방법 |
 |---|---|
-| 얼룩·찢어짐을 언제 "있다"고 할지 기준이 애매함 | YOLO를 5~7차까지 다시 학습·비교해 기준값(0.5 / 0.3)을 데이터로 결정 |
-| 입은 옷의 무늬 인식이 잘 안 맞음 | FashionSigLIP에 LoRA 미세 조정 → 정확도 **0.845 → 0.900** |
-| 앞니 사이 고춧가루를 모델이 놓침 | 모델을 v4까지 고쳐 재학습 → 합성 시험 정확도 **91%** |
-| 모델이 애매한 사진을 틀리게 답함 | 애매하면 GPT로 한 번 더 확인하고, 그 사진은 재학습 후보로 저장 |
-| GPT로 사진을 보내면 얼굴이 함께 나감(개인정보) | 보내기 전에 얼굴 쪽을 가리고, 치아는 입 주변만 잘라 보냄 |
-| 확인이 느려 음성 대화가 끊김 | 확인 제한 시간 3초 → 1.5초, 사진 긴 변 1280px로 줄이기 |
+| 얼룩·찢어짐을 언제 "있다"고 할지 기준이 애매함 | YOLO를 v7까지 다시 학습·비교하고, 기준을 데이터로 정함: 확신 0.5 이상은 바로 알림, 0.2~0.5는 동의한 사용자만 GPT로 한 번 더 확인 → 사진 단위 정답률 91.9% → **98.1%** |
+| 점수가 가장 높은 모델(v7)이 깨끗한 옷을 더 자주 의심함 | 점수만 보지 않고 깨끗한 옷 200장 오탐까지 같이 재서 v6(오탐 1장) 채택 |
+| 입은 옷의 무늬 인식이 잘 안 맞음 (84.5%) | FashionSigLIP에 LoRA 미세 조정 + 작은 YOLO와 확률 섞기 + 애매한 6.5%만 GPT에게 크게 보여 묻기 → **90.02%** |
+| 흰 옷 색을 15%만 맞힘 (그림자·배경이 섞임) | 픽셀 규칙 대신 옷 모양을 보는 작은 CNN(0.8MB)을 K-Fashion으로 학습 → 흰 옷 **87%** |
+| 앞니 사이 고춧가루를 모델이 놓침 | 사진 384px, 고춧가루 합성 3배로 v4 재학습 → 실제 사진 0.03 → **0.96**, 합성 시험 **91.2%** |
+| 모델이 애매한 사진을 틀리게 답함 | 애매하면 GPT로 확인하고, 그 조각은 재학습 후보로 저장(30일 뒤 자동 삭제) |
+| 옷 사진을 GPT로 보내면 얼굴이 함께 나감 | 보내기 전에 얼굴 쪽을 가림. **얼굴·치아 사진은 외부 AI로 아예 보내지 않고** 직접 학습한 ONNX 모델로만 판단 |
+| 서버마다 `X-User-Id` 헤더를 믿어 사용자 위조 위험 | 헤더를 없애고 gateway·agent·schedule이 JWT를 직접 확인하도록 3개 레포를 함께 수정 |
+| 확인이 느려 음성 대화가 끊김 | GPT 확인 제한 시간 3초 → 1.5초, 사진 긴 변 1280px로 줄이기 |
 | 첫 추천이 느림 | 앱이 켜질 때 서버가 날씨·일정을 미리 불러오도록(`/agent/warm`) 변경 |
 
-**📚 더 배우려고 찾아본 것**: MCP(Model Context Protocol)와 Spring AI 도구 만들기, LoRA 미세 조정, ONNX로 Java 서버에서 모델 돌리기, 시각장애인 접근성(VoiceOver에서 버튼 잡히는 방식)
+**📚 더 배우려고 찾아본 것**: MCP(Model Context Protocol)와 Spring AI 도구 만들기, LoRA 미세 조정, 하이퍼파라미터 자동 조정(YOLO tune), ONNX로 Java 서버에서 모델 돌리기, TensorRT FP16/INT8 득실, JWT 검증 위치(게이트웨이 vs 각 서버), 시각장애인 접근성(VoiceOver에서 버튼 잡히는 방식)
+
+<sub>치아 학습 데이터: [FFHQ](https://github.com/NVlabs/ffhq-dataset) (CC BY-NC-SA 4.0) 얼굴 사진에 이물질을 합성해 학습했고, 사진은 저장소에 올리지 않았습니다. 옷 색 데이터: AI Hub K-Fashion. 화면·그림은 [팀 조직 README](https://github.com/fashion-agent-team)에서 가져왔습니다. 옷 종류 후처리 보강(글 벡터·SigLIP2) 등 팀원이 한 작업은 제 작업에서 뺐습니다.</sub>
 
 ---
 
@@ -297,7 +350,7 @@
 
 | 시기 | 한 일 |
 |---|---|
-| 2026.11.03 ~ 11.20 | [패션 에이전트](https://github.com/jiwon934/fashion-agent) 팀 프로젝트 |
+| 2026.11.03 ~ 11.24 | [패션 에이전트](https://github.com/jiwon934/fashion-agent) 팀 프로젝트 |
 | 2026.10.29 ~ 10.31 | Jetson 카메라 비전 응용 실습 과제 1~6 (12시간 무중단 서비스) |
 | 2026.10.23 ~ 10.28 | EmbeddingGemma 2 멀티모달 실습 (1~10단계) |
 | 2026.10.20 ~ 10.22 | [시계열 추론 실습 과제 1~8](https://github.com/jiwon934/timeseries-inference-AIGJ_01_015) (Jetson 상시 서비스) |
