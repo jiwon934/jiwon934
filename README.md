@@ -211,6 +211,11 @@
 - 팀장으로 월별 목표·진행률 관리
 - 추가 센서 없이 **웹캠만으로** 동작하는 프로토타입 완성 (특허 출원 목표)
 
+<p align="center">
+  <img src="images/ttarason-concept.png" width="70%" alt="따라손 놀이 서비스 개념도">
+</p>
+<p align="center"><sub>서비스 개념도 (발표 자료) · 화면의 도형을 손 모양으로 따라 하면 웹캠이 인식해 판정</sub></p>
+
 **🛠 사용한 언어·도구**: Python · YOLOv8 / YOLO11 · MediaPipe · OpenCV · Roboflow
 
 **🧗 어려웠던 점 → 해결**
